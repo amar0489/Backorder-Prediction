@@ -21,7 +21,7 @@ def get_requirements(file_path:str)->List[str]:
 
 setup(
     name= 'backorderproject',
-    version='1.0',
+    version='0.0.1',
     author='amar',
     author_email='amarhulamani14@gmail.com',
     packages=find_packages(),
