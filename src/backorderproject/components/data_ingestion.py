@@ -24,7 +24,7 @@ class DataIngestion:
 
         try:
             df= pd.read_csv(r'notebook\data\backorder_data.csv',low_memory=False)
-            df.drop(columns=['Unnamed: 0'], inplace=True , axis=1)
+            df.drop(columns=['Unnamed: 0','sku'], inplace=True , axis=1)
 
             logging.info('Imported the dataset')
 
@@ -56,8 +56,3 @@ class DataIngestion:
 
         except Exception as ex:
             raise CustomException(ex,sys)
-        
-
-if __name__ == "__main__":
-    obj = DataIngestion()
-    obj.initiate_data_ingestion()

@@ -7,4 +7,5 @@ scipy
 imblearn
 xgboost
 lightgbm
+dill
 #-e .
