@@ -44,6 +44,12 @@ class DataIngestion:
                 train_set = df.loc[train_index]
                 test_set = df.loc[test_index]
 
+                target_column_name= 'went_on_backorder'
+
+                print(f"Unique values in target train set:", set(train_set[target_column_name]))
+                print(f"Unique values in target test set:", set(test_set[target_column_name]))
+
+
             train_set.to_csv(self.ingestion_config.train_data_path,header=True,index=False)
             test_set.to_csv(self.ingestion_config.test_data_path,header=True,index=False)
 

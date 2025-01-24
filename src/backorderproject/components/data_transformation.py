@@ -103,8 +103,19 @@ class DataTransformation:
             encoder= LabelEncoder()
             target_column_name= "went_on_backorder"
 
+            train_df[target_column_name]= train_df[target_column_name].fillna(train_df[target_column_name].mode()[0])
+            test_df[target_column_name]= test_df[target_column_name].fillna(test_df[target_column_name].mode()[0])
+
+            print(f"Unique values in target train:", set(train_df[target_column_name]))
+            print(f"Unique values in target test:", set(test_df[target_column_name]))
+
+
             train_df[target_column_name]= encoder.fit_transform(train_df[target_column_name])
             test_df[target_column_name]= encoder.transform(test_df[target_column_name])
+
+            print(f"Unique values in target train df:", set(train_df[target_column_name]))
+            print(f"Unique values in target test df:", set(test_df[target_column_name]))
+
 
             input_feature_train_df= train_df.drop(columns=[target_column_name],axis=1)
             target_feature_train_df= train_df[target_column_name]
