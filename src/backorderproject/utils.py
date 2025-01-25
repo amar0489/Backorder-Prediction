@@ -1,22 +1,23 @@
 import os
 import sys
 
-import numpy as np
-import pandas as pd
 import dill
 from sklearn.metrics import precision_recall_curve, auc, roc_curve, recall_score
+import gzip
 
 from src.backorderproject.exception import CustomException
 
-def save_object(file_path, obj):
+def save_object(file_path, obj, compression=False):
     try:
-        dir_path= os.path.dirname(file_path)
+        dir_path = os.path.dirname(file_path)
+        os.makedirs(dir_path, exist_ok=True)
 
-        os.makedirs(dir_path,exist_ok=True)
-
-        with open(file_path, "wb") as file_obj:
-            dill.dump(obj, file_obj)
-
+        if compression:                                                 #For large files
+            with gzip.open(file_path + ".gz", "wb") as file_obj:
+                dill.dump(obj, file_obj)
+        else:
+            with open(file_path, "wb") as file_obj:                     
+                dill.dump(obj, file_obj)
 
     except Exception as e:
         raise CustomException(e, sys)
