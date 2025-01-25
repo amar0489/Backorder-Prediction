@@ -147,12 +147,12 @@ class ModelTrainer:
                 save_object(
                     file_path=self.model_trainer_config.trained_model_file_path,
                     obj=best_model,
-                )
+                    compression=True                        # Model file compressed
+                )           
 
                 logging.info(f"Best model saved successfully")
 
                 return best_model_name, best_model_metrics
-            
             
             else:
                 logging.warning("Best model not found for saving.")
