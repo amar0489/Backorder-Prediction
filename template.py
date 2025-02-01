@@ -14,7 +14,6 @@ list_of_files= [
     f"src/{project_name}/components/model_trainer.py",
     f"src/{project_name}/components/model_monitering.py",
     f"src/{project_name}/pipelines/__init__.py",
-    f"src/{project_name}/pipelines/training_pipeline.py",
     f"src/{project_name}/pipelines/prediction_pipeline.py",
     f"src/{project_name}/exception.py",
     f"src/{project_name}/logger.py",
@@ -23,10 +22,14 @@ list_of_files= [
     "main.py",
     "requirements.txt",
     "setup.py",
+    "streamlit_app.py",
+    "file_size.py",
+    "README.md",
     "notebook/eda.ipynb",
     "notebook/base_level.ipynb",
     "notebook/model_training.ipynb",
-    "notebook/model_selection.ipynb"
+    "notebook/model_selection.ipynb",
+    "notebook/data/backorder_data.ipynb"
 ]
 
 for filepath in list_of_files:

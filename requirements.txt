@@ -8,4 +8,7 @@ imblearn
 xgboost
 lightgbm
 dill
+fastapi
+uvicorn
+streamlit
 #-e .
