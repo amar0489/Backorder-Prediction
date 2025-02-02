@@ -44,8 +44,7 @@ if st.button('Predict'):
     }
 
     # Send request to FastAPI endpoint
-    API_URL = os.getenv("API_URL", "http://your-eb-url.com:8000/predict")
-    response = requests.post(API_URL, json=input_data)
+    response = requests.post("http://127.0.0.1:8000/predict", json=input_data)
     
     # Get and display the prediction result
     if response.status_code == 200:
