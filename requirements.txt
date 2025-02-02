@@ -10,5 +10,9 @@ lightgbm
 dill
 fastapi
 uvicorn
+gunicorn
 streamlit
+pydantic
+requests
+azure-cli
 
