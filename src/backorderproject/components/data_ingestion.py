@@ -1,3 +1,5 @@
+# Data Ingestion
+
 import os
 import sys
 from src.backorderproject.exception import CustomException
@@ -10,7 +12,8 @@ from dataclasses import dataclass
 
 @dataclass
 class DataIngestionConfig:
-    
+    #To specify the file paths to be inside artifacts folder
+
     train_data_path: str = os.path.join('artifacts',"train.csv")
     test_data_path: str = os.path.join('artifacts',"test.csv")
     raw_data_path: str = os.path.join('artifacts',"data.csv")
@@ -23,31 +26,26 @@ class DataIngestion:
         logging.info("Entered the data ingestion phase")
 
         try:
-            df= pd.read_csv(r'notebook\data\backorder_data.csv',low_memory=False)
+            df= pd.read_csv(r'notebook\data\backorder_data.csv',low_memory=False)       
             df.drop(columns=['Unnamed: 0','sku'], inplace=True , axis=1)
 
             logging.info('Imported the dataset')
 
 
-            os.makedirs(os.path.dirname(self.ingestion_config.raw_data_path),exist_ok=True)
+            os.makedirs(os.path.dirname(self.ingestion_config.raw_data_path),exist_ok=True)         
 
-            df.to_csv(self.ingestion_config.raw_data_path,header=True,index=False)
+            df.to_csv(self.ingestion_config.raw_data_path,header=True,index=False)      # Saving the raw data 
 
             logging.info("Train Test Split Initiated")
 
             train_set = None
             test_set = None
 
-            
+            # Using Stratified shuffle due to imbalance nature of the data
             stratified_shuffle_split = StratifiedShuffleSplit(n_splits=1, test_size=0.2, random_state=42)
             for train_index, test_index in stratified_shuffle_split.split(df, df['went_on_backorder'].fillna(df['went_on_backorder'].mode()[0])):
                 train_set = df.loc[train_index]
                 test_set = df.loc[test_index]
-
-                target_column_name= 'went_on_backorder'
-
-                print(f"Unique values in target train set:", set(train_set[target_column_name]))
-                print(f"Unique values in target test set:", set(test_set[target_column_name]))
 
 
             train_set.to_csv(self.ingestion_config.train_data_path,header=True,index=False)

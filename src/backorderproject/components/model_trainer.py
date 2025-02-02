@@ -1,3 +1,5 @@
+# Model Training
+
 import os
 import sys
 from dataclasses import dataclass
@@ -147,7 +149,7 @@ class ModelTrainer:
                 save_object(
                     file_path=self.model_trainer_config.trained_model_file_path,
                     obj=best_model,
-                    compression=True                        # Model file compressed
+                    compression=True                        # Model file compressed [Exceeding 100MB file size]
                 )           
 
                 logging.info(f"Best model saved successfully")

@@ -1,10 +1,10 @@
+# Utils file:- Used for saving, loading and evaluating objects/models
+
 import os
 import sys
-
 import dill
 from sklearn.metrics import precision_recall_curve, auc, roc_curve, recall_score
 import gzip
-
 from src.backorderproject.exception import CustomException
 
 def save_object(file_path, obj, compression=False):

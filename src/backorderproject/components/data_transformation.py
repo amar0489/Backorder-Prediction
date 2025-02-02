@@ -1,3 +1,5 @@
+# Data Transformation
+
 import os
 import sys
 
@@ -20,7 +22,7 @@ from imblearn.under_sampling import RandomUnderSampler
 
 @dataclass
 class DataTransformationConfig:
-    base_preprocessor_path= os.path.join('artifacts')
+    base_preprocessor_path= os.path.join('artifacts')           # Dynamic path used for different sampling techniques
 
 
 class DataTransformation:
@@ -106,15 +108,9 @@ class DataTransformation:
             train_df[target_column_name]= train_df[target_column_name].fillna(train_df[target_column_name].mode()[0])
             test_df[target_column_name]= test_df[target_column_name].fillna(test_df[target_column_name].mode()[0])
 
-            print(f"Unique values in target train:", set(train_df[target_column_name]))
-            print(f"Unique values in target test:", set(test_df[target_column_name]))
-
 
             train_df[target_column_name]= encoder.fit_transform(train_df[target_column_name])
             test_df[target_column_name]= encoder.transform(test_df[target_column_name])
-
-            print(f"Unique values in target train df:", set(train_df[target_column_name]))
-            print(f"Unique values in target test df:", set(test_df[target_column_name]))
 
 
             input_feature_train_df= train_df.drop(columns=[target_column_name],axis=1)

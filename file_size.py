@@ -1,4 +1,5 @@
 # For getting the file size
+# Change the file path for the file whose size u want to check
 
 import os
 
