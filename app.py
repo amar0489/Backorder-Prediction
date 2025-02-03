@@ -1,3 +1,5 @@
+# FastAPI which takes input from the web app and sends the predictions using the trained model
+
 import os
 from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
@@ -24,7 +26,7 @@ class PredictionInput(BaseModel):
     stop_auto_buy: str  # Categorical feature (e.g., 'yes' or 'no')
     rev_stop: str  # Categorical feature (e.g., 'yes' or 'no')
 
-# Load the model and preprocessor
+# Loading the model and preprocessor
 model_path = os.path.join("artifacts", "model.pkl.gz")
 preprocessor_path = os.path.join("artifacts", "preprocessor.pkl")
 
@@ -34,7 +36,7 @@ prediction_pipeline = PredictionPipeline(model_path, preprocessor_path)
 @app.post("/predict")
 async def predict(input_data: PredictionInput):
     try:
-        # Convert the dictionary into a DataFrame, this is necessary for preprocessing
+        # Converting the dictionary into a DataFrame, this is necessary for preprocessing
         input_df = pd.DataFrame([input_data.dict(exclude_unset=True)])  # Convert to DataFrame with a single row
 
         # Get prediction from the prediction pipeline

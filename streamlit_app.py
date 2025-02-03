@@ -1,13 +1,14 @@
+# Streamlit Web App which takes user input sends a request to the backend API and returns predictions
+
 import streamlit as st
 import requests
-import os
 
 # Streamlit interface
 st.markdown("<h1 style='text-align: center;'>Backorder Prediction</h1>", unsafe_allow_html=True)
 
 st.write('Enter the required details to predict backorder situation')
 
-# Create form to take user input
+# Create user interface for input data
 inv = st.number_input('Current National Inventory of the product', value= 0.0, step=1.0)
 leadtime = st.number_input('Lead Time of the product', min_value=0.0, step=0.1)
 transit = st.number_input('Total quantity of products in transit', min_value=0.0, step=1.0)

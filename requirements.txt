@@ -15,5 +15,5 @@ streamlit
 pydantic
 requests
 azure-cli
-
+#.e
 

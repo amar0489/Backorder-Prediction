@@ -1,3 +1,5 @@
+# Prediction pipeline that takes the user input and gives predictions using the trained model
+
 import sys
 import os
 from src.backorderproject.utils import load_object
@@ -23,7 +25,7 @@ class PredictionPipeline:
         """
 
         try:
-            # Apply any preprocessing (e.g., scaling) before passing to the model
+            # Applying preprocessing before passing to the model
             preprocessed_data = self.preprocessor.transform(input_data)
         
             # Get the prediction from the model
