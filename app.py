@@ -1,6 +1,7 @@
 # FastAPI which takes input from the web app and sends the predictions using the trained model
 
 import os
+import time
 from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
 import pandas as pd
@@ -39,10 +40,20 @@ async def predict(input_data: PredictionInput):
         # Converting the dictionary into a DataFrame, this is necessary for preprocessing
         input_df = pd.DataFrame([input_data.dict(exclude_unset=True)])  # Convert to DataFrame with a single row
 
+         # Start measuring time
+        start_time = time.time()
+
+        # Get prediction
+        prediction = prediction_pipeline.predict(input_df)
+
+        # End measuring time
+        end_time = time.time()
+        latency_seconds = end_time - start_time  # Calculate latency
+
         # Get prediction from the prediction pipeline
         prediction = prediction_pipeline.predict(input_df)
         
-        return {"prediction": prediction}
+        return {"prediction": prediction, 'latency_seconds':latency_seconds}
 
     except Exception as ex:
         raise HTTPException(status_code=400, detail=f"Error during prediction: {str(ex)}")
