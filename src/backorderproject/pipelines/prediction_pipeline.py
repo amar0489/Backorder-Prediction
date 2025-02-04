@@ -4,6 +4,7 @@ import sys
 import os
 from src.backorderproject.utils import load_object
 from src.backorderproject.exception import CustomException
+from src.backorderproject.logger import logging
 
 
 
@@ -25,11 +26,16 @@ class PredictionPipeline:
         """
 
         try:
+
+            logging.info('Transforming user input data')
+            
             # Applying preprocessing before passing to the model
             preprocessed_data = self.preprocessor.transform(input_data)
         
             # Get the prediction from the model
             prediction = self.model.predict(preprocessed_data)
+
+            logging.info('Model Prediction done')
         
             # Return the prediction result
             return "Yes, product expected to go on backorder" if prediction == 1 else "No backorder situation expected"

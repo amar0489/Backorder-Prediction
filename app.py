@@ -1,11 +1,14 @@
 # FastAPI which takes input from the web app and sends the predictions using the trained model
 
 import os
+import sys
 import time
-from fastapi import FastAPI, HTTPException
+from fastapi import FastAPI
 from pydantic import BaseModel
 import pandas as pd
 from src.backorderproject.pipelines.prediction_pipeline import PredictionPipeline
+from src.backorderproject.exception import CustomException
+from src.backorderproject.logger import logging
 
 app = FastAPI()
 
@@ -40,6 +43,8 @@ async def predict(input_data: PredictionInput):
         # Converting the dictionary into a DataFrame, this is necessary for preprocessing
         input_df = pd.DataFrame([input_data.dict(exclude_unset=True)])  # Convert to DataFrame with a single row
 
+        logging.info('Input data received')
+
          # Start measuring time
         start_time = time.time()
 
@@ -50,10 +55,9 @@ async def predict(input_data: PredictionInput):
         end_time = time.time()
         latency_seconds = end_time - start_time  # Calculate latency
 
-        # Get prediction from the prediction pipeline
-        prediction = prediction_pipeline.predict(input_df)
+        logging.info('Model Prediction done')
         
         return {"prediction": prediction, 'latency_seconds':latency_seconds}
 
     except Exception as ex:
-        raise HTTPException(status_code=400, detail=f"Error during prediction: {str(ex)}")
+        raise CustomException(ex, sys)
