@@ -107,6 +107,11 @@ Our solution follows a structured machine learning pipeline:
 
 ---
 
+## **Demo Video**
+https://www.loom.com/share/e6085920f8fd4fe8b01a397be8d0dc46?sid=f599e07e-1fdb-4044-b3e2-39f5fc4ea01e
+
+---
+
 ## **Project Structure**  
 The Backorder Prediction System follows a well-structured directory layout to ensure modularity and maintainability. Below is the organized project structure:
 ```bash
